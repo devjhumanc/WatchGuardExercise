@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WatchGuardExercise", "WatchGuardExercise.csproj", "{DE215175-002D-4F64-9FFB-3B721066A4A3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiUnitTesting", "..\ApiUnitTesting\ApiUnitTesting.csproj", "{83D9A275-591A-4517-A081-31DCC9587764}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchGuardConsoleApp", "..\WatchGuardConsoleApp\WatchGuardConsoleApp.csproj", "{9AD87831-FE68-42D6-A234-28BE4B9518AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{DE215175-002D-4F64-9FFB-3B721066A4A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE215175-002D-4F64-9FFB-3B721066A4A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE215175-002D-4F64-9FFB-3B721066A4A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D9A275-591A-4517-A081-31DCC9587764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D9A275-591A-4517-A081-31DCC9587764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D9A275-591A-4517-A081-31DCC9587764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D9A275-591A-4517-A081-31DCC9587764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AD87831-FE68-42D6-A234-28BE4B9518AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AD87831-FE68-42D6-A234-28BE4B9518AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AD87831-FE68-42D6-A234-28BE4B9518AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AD87831-FE68-42D6-A234-28BE4B9518AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
