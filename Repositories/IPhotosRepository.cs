@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,6 +11,6 @@ namespace WatchGuardExercise.Repositories
 {
     public interface IPhotosRepository
     {
-        Task<RoverPhotos> GetRoverPhotosByDate(CancellationToken ct, DateTime date);
+        Task GetRoverPhotosByDate(CancellationToken ct, string date, IWebHostEnvironment env, IConfiguration configuration);
     }
 }

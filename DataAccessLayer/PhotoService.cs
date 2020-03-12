@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -14,22 +16,34 @@ namespace WatchGuardExercise.DataAccessLayer
 {
     public class PhotoService : IPhotosRepository
     {
-        public async Task<RoverPhotos> GetRoverPhotosByDate(CancellationToken ct, DateTime date)
-        {
-            RoverPhotos roverPhotos = new RoverPhotos();
 
+        public async Task GetRoverPhotosByDate(CancellationToken ct, string stringDate, IWebHostEnvironment env, IConfiguration configuration)
+        {
             try
             {
-                var stringDate = date.ToString("yyyy-MM-dd");
-                var jsonString = await GetJsonData("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=" + stringDate + "&api_key=yhxmCdrK4XW0M24avWI9KBqamjGgWC89dNB9jC6I");
+                RoverPhotos roverPhotos = new RoverPhotos();
+                var nasaURL = configuration["NASA:URL"].ToString();
+                var apikey = configuration["NASA:API_Key"].ToString();
+                
+                var jsonString = await GetJsonData(nasaURL + "?earth_date=" + stringDate + "&api_key=" + apikey);
                 roverPhotos = (RoverPhotos)ConvertJsonToObject<RoverPhotos>(jsonString);
+
+                Directory.CreateDirectory(env.WebRootPath + "/Images/" + stringDate);
+                
+                foreach (var photo in roverPhotos.photos)
+                {
+                    var url = photo.img_src;
+                    var filename = photo.id + ".JPG";
+
+                    var savePath = env.WebRootPath + "/Images/" + stringDate + "/" + filename;
+                    DownloadAndSaveImage(url, savePath);
+                }
             }
             catch (Exception ex)
             {
+                //todo: log to db or files
                 var exectption = ex.ToString();
             }
-
-            return roverPhotos;
         }
 
         private async Task<JObject> GetJsonData(string url)
@@ -49,10 +63,16 @@ namespace WatchGuardExercise.DataAccessLayer
             return jsonData;
         }
 
-        private object ConvertJsonToObject<T>(JObject jObject) 
+        private object ConvertJsonToObject<T>(JObject jObject)
         {
             T tObject = JsonConvert.DeserializeObject<T>(jObject.ToString());
             return tObject;
+        }
+
+        private void DownloadAndSaveImage(string url, string savePath)
+        {
+            WebClient myWebClient = new WebClient();
+            myWebClient.DownloadFile(url, savePath);
         }
     }
 }
