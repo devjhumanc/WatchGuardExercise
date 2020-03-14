@@ -19,13 +19,10 @@ namespace WatchGuardExercise.BusinessLogicLayer
         {
             List<RoverPhotosViewModel> roverPhotosViewModels = new List<RoverPhotosViewModel>();
 
-            //1. check if the folder with that date exits
             var stringDate = date.ToString("yyyy-MM-dd");
-            bool folderExists = Directory.Exists(env.WebRootPath + "/Images/" + stringDate);
-            if (!folderExists)
-            {
-                await repository.GetRoverPhotosByDate(ct, stringDate, env, config);
-            }
+
+            //download photos if not exits
+            await repository.GetRoverPhotosByDate(ct, stringDate, env, config);
 
             //get photos from the folder
             var files = Directory.GetFiles(env.WebRootPath + "/Images/" + stringDate);

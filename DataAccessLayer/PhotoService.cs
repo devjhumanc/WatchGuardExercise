@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -35,8 +36,12 @@ namespace WatchGuardExercise.DataAccessLayer
                     var url = photo.img_src;
                     var filename = photo.id + ".JPG";
 
-                    var savePath = env.WebRootPath + "/Images/" + stringDate + "/" + filename;
-                    DownloadAndSaveImage(url, savePath);
+                    var savePath = env.WebRootPath + "/Images/" + stringDate + @"\" + filename;
+                    var allfiles = Directory.GetFiles(env.WebRootPath + "/Images/" + stringDate).ToList();
+                    bool fileExits = allfiles.Contains(savePath);
+                    
+                    if (!fileExits)
+                        DownloadAndSaveImage(url, savePath);
                 }
             }
             catch (Exception ex)
